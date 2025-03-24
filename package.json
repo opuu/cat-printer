@@ -1,6 +1,5 @@
 {
   "name": "cat-printer",
-  "private": true,
   "description": "A simple library to print cat images.",
   "version": "0.1.0",
   "type": "module",
@@ -43,5 +42,9 @@
     "email": "hello@opu.rocks",
     "url": "https://opu.rocks"
   },
-  "license": "AGPL-3.0-only"
+  "license": "AGPL-3.0-only",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opuu/cat-printer.git"
+  }
 }
