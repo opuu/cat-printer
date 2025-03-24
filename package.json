@@ -2,7 +2,7 @@
   "name": "cat-printer",
   "private": true,
   "description": "A simple library to print cat images.",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "main": "./dist/cat-printer.umd.cjs",
   "module": "./dist/cat-printer.js",
