@@ -9,12 +9,6 @@ bun.lock
 bun.lockb
 pnpm-lock.yaml
 
-# Build outputs
-dist/
-build/
-lib/
-.output/
-
 # Environment variables
 .env
 .env.local
