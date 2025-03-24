@@ -1,45 +1,45 @@
-var C = Object.defineProperty;
-var R = (s, e, t) => e in s ? C(s, e, { enumerable: !0, configurable: !0, writable: !0, value: t }) : s[e] = t;
-var y = (s, e, t) => R(s, typeof e != "symbol" ? e + "" : e, t);
-const F = 44848, N = 44592, B = 44545, V = 44546, H = 384, M = 32, O = 24e3, U = 100;
-var v = /* @__PURE__ */ ((s) => (s[s.ApplyEnergy = 190] = "ApplyEnergy", s[s.GetDeviceState = 163] = "GetDeviceState", s[s.GetDeviceInfo = 168] = "GetDeviceInfo", s[s.UpdateDevice = 169] = "UpdateDevice", s[s.SetDpi = 164] = "SetDpi", s[s.Lattice = 166] = "Lattice", s[s.Retract = 160] = "Retract", s[s.Feed = 161] = "Feed", s[s.Speed = 189] = "Speed", s[s.Energy = 175] = "Energy", s[s.Bitmap = 162] = "Bitmap", s))(v || {}), _ = /* @__PURE__ */ ((s) => (s[s.Transfer = 0] = "Transfer", s[s.Response = 1] = "Response", s))(_ || {});
-function T(s) {
-  let e = 0;
-  for (const t of s) {
-    e ^= t;
+var F = Object.defineProperty;
+var B = (h, t, e) => t in h ? F(h, t, { enumerable: !0, configurable: !0, writable: !0, value: e }) : h[t] = e;
+var v = (h, t, e) => B(h, typeof t != "symbol" ? t + "" : t, e);
+const V = 44848, U = 44592, z = 44545, O = 44546, G = 384, k = 32, W = 24e3, X = 100;
+var S = /* @__PURE__ */ ((h) => (h[h.ApplyEnergy = 190] = "ApplyEnergy", h[h.GetDeviceState = 163] = "GetDeviceState", h[h.GetDeviceInfo = 168] = "GetDeviceInfo", h[h.UpdateDevice = 169] = "UpdateDevice", h[h.SetDpi = 164] = "SetDpi", h[h.Lattice = 166] = "Lattice", h[h.Retract = 160] = "Retract", h[h.Feed = 161] = "Feed", h[h.Speed = 189] = "Speed", h[h.Energy = 175] = "Energy", h[h.Bitmap = 162] = "Bitmap", h))(S || {}), E = /* @__PURE__ */ ((h) => (h[h.Transfer = 0] = "Transfer", h[h.Response = 1] = "Response", h))(E || {});
+function N(h) {
+  let t = 0;
+  for (const e of h) {
+    t ^= e;
     for (let i = 0; i < 8; i++)
-      e & 128 ? e = e << 1 ^ 7 : e <<= 1;
-    e &= 255;
-  }
-  return e;
-}
-function E(s, e = 128) {
-  const t = new Uint8Array(Math.ceil(s.length / 8));
-  for (let i = 0; i < s.length; i++) {
-    const r = Math.floor(i / 8), o = i % 8, a = s[i], n = a & 255, h = a >> 8 & 255, c = a >> 16 & 255;
-    (n + h + c) / 3 < e && (t[r] |= 1 << o);
+      t & 128 ? t = t << 1 ^ 7 : t <<= 1;
+    t &= 255;
   }
   return t;
 }
-class x {
+function x(h, t = 128) {
+  const e = new Uint8Array(Math.ceil(h.length / 8));
+  for (let i = 0; i < h.length; i++) {
+    const r = Math.floor(i / 8), o = i % 8, s = h[i], a = s & 255, n = s >> 8 & 255, c = s >> 16 & 255;
+    (a + n + c) / 3 < t && (e[r] |= 1 << o);
+  }
+  return e;
+}
+class _ {
   /**
    * Applies threshold dithering to the image data.
    * @param imageData The ImageData object.
    * @param options Image options, specifically the brightness threshold.
    * @returns The dithered ImageData.
    */
-  dither(e, t) {
-    const i = e.data, r = t.brightness !== void 0 ? t.brightness : 128;
+  dither(t, e) {
+    const i = t.data, r = e.brightness !== void 0 ? e.brightness : 128;
     for (let o = 0; o < i.length; o += 4) {
-      const n = (i[o] + i[o + 1] + i[o + 2]) / 3 < r ? 0 : 255;
-      i[o] = i[o + 1] = i[o + 2] = n;
+      const a = (i[o] + i[o + 1] + i[o + 2]) / 3 < r ? 0 : 255;
+      i[o] = i[o + 1] = i[o + 2] = a;
     }
-    return e;
+    return t;
   }
 }
 class A {
   constructor() {
-    y(this, "thresholdMap", [
+    v(this, "thresholdMap", [
       [0, 2],
       [3, 1]
     ]);
@@ -50,70 +50,70 @@ class A {
    * @param _options Image options (not directly used in this algorithm).
    * @returns The dithered ImageData.
    */
-  dither(e, t) {
-    const i = e.data, r = e.width, o = e.height;
-    for (let a = 0; a < o; a++)
-      for (let n = 0; n < r; n++) {
-        const h = (a * r + n) * 4, c = i[h], g = i[h + 1], p = i[h + 2], u = (c + g + p) / 3, m = (this.thresholdMap[a % 2][n % 2] + 1) * (255 / 5), d = u < m ? 0 : 255;
-        i[h] = i[h + 1] = i[h + 2] = d;
+  dither(t, e) {
+    const i = t.data, r = t.width, o = t.height;
+    for (let s = 0; s < o; s++)
+      for (let a = 0; a < r; a++) {
+        const n = (s * r + a) * 4, c = i[n], l = i[n + 1], f = i[n + 2], u = (c + l + f) / 3, m = (this.thresholdMap[s % 2][a % 2] + 1) * (255 / 5), g = u < m ? 0 : 255;
+        i[n] = i[n + 1] = i[n + 2] = g;
       }
-    return e;
+    return t;
   }
 }
-class D {
+class C {
   /**
    * Applies Floyd-Steinberg dithering to the image data.
    * @param imageData The ImageData object.
    * @param _options Image options (not directly used in this algorithm).
    * @returns The dithered ImageData.
    */
-  dither(e, t) {
-    const i = e.data, r = e.width, o = e.height;
-    for (let a = 0; a < o; a++)
-      for (let n = 0; n < r; n++) {
-        const h = (a * r + n) * 4, c = i[h], g = i[h + 1], p = i[h + 2], m = (c + g + p) / 3 < 128 ? 0 : 255, d = m, f = m, b = m;
-        i[h] = d, i[h + 1] = f, i[h + 2] = b;
-        const S = c - d, l = g - f, w = p - b;
+  dither(t, e) {
+    const i = t.data, r = t.width, o = t.height;
+    for (let s = 0; s < o; s++)
+      for (let a = 0; a < r; a++) {
+        const n = (s * r + a) * 4, c = i[n], l = i[n + 1], f = i[n + 2], m = (c + l + f) / 3 < 128 ? 0 : 255, g = m, w = m, b = m;
+        i[n] = g, i[n + 1] = w, i[n + 2] = b;
+        const y = c - g, d = l - w, p = f - b;
         this.distributeError(
           i,
           r,
-          n + 1,
+          a + 1,
+          s,
+          y * 7 / 16,
+          d * 7 / 16,
+          p * 7 / 16
+        ), this.distributeError(
+          i,
+          r,
+          a - 1,
+          s + 1,
+          y * 3 / 16,
+          d * 3 / 16,
+          p * 3 / 16
+        ), this.distributeError(
+          i,
+          r,
           a,
-          S * 7 / 16,
-          l * 7 / 16,
-          w * 7 / 16
+          s + 1,
+          y * 5 / 16,
+          d * 5 / 16,
+          p * 5 / 16
         ), this.distributeError(
           i,
           r,
-          n - 1,
           a + 1,
-          S * 3 / 16,
-          l * 3 / 16,
-          w * 3 / 16
-        ), this.distributeError(
-          i,
-          r,
-          n,
-          a + 1,
-          S * 5 / 16,
-          l * 5 / 16,
-          w * 5 / 16
-        ), this.distributeError(
-          i,
-          r,
-          n + 1,
-          a + 1,
-          S * 1 / 16,
-          l * 1 / 16,
-          w * 1 / 16
+          s + 1,
+          y * 1 / 16,
+          d * 1 / 16,
+          p * 1 / 16
         );
       }
-    return e;
+    return t;
   }
-  distributeError(e, t, i, r, o, a, n) {
-    if (i >= 0 && i < t && r >= 0 && r < e.length / (t * 4)) {
-      const h = (r * t + i) * 4;
-      e[h] = Math.max(0, Math.min(255, e[h] + o)), e[h + 1] = Math.max(0, Math.min(255, e[h + 1] + a)), e[h + 2] = Math.max(0, Math.min(255, e[h + 2] + n));
+  distributeError(t, e, i, r, o, s, a) {
+    if (i >= 0 && i < e && r >= 0 && r < t.length / (e * 4)) {
+      const n = (r * e + i) * 4;
+      t[n] = Math.max(0, Math.min(255, t[n] + o)), t[n + 1] = Math.max(0, Math.min(255, t[n + 1] + s)), t[n + 2] = Math.max(0, Math.min(255, t[n + 2] + a));
     }
   }
 }
@@ -124,33 +124,97 @@ class I {
    * @param _options Image options (not directly used in this algorithm).
    * @returns The dithered ImageData.
    */
-  dither(e, t) {
-    const i = e.data;
+  dither(t, e) {
+    const i = t.data;
     for (let r = 0; r < i.length; r += 4) {
-      const o = (i[r] + i[r + 1] + i[r + 2]) / 3, a = Math.random() * 255, n = o < a ? 0 : 255;
-      i[r] = i[r + 1] = i[r + 2] = n;
+      const o = (i[r] + i[r + 1] + i[r + 2]) / 3, s = Math.random() * 255, a = o < s ? 0 : 255;
+      i[r] = i[r + 1] = i[r + 2] = a;
     }
-    return e;
+    return t;
   }
 }
-const G = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+class D {
+  /**
+   * Creates a new PixelDithering instance.
+   * @param binSize The size of pixel bins (default: 3).
+   * @param shadesCount Number of brightness levels (default: 20).
+   */
+  constructor(t = 3, e = 20) {
+    v(this, "binSize");
+    v(this, "shadesCount");
+    this.binSize = Math.max(1, Math.floor(t)), this.shadesCount = Math.max(2, Math.floor(e));
+  }
+  dither(t, e) {
+    const i = t.data, r = t.width, o = t.height;
+    for (let s = 0; s < o; s += this.binSize)
+      for (let a = 0; a < r; a += this.binSize) {
+        let n = 0, c = 0;
+        const l = Math.min(s + this.binSize, o), f = Math.min(a + this.binSize, r);
+        for (let b = s; b < l; b++)
+          for (let y = a; y < f; y++) {
+            const d = (b * r + y) * 4, p = i[d], P = i[d + 1], M = i[d + 2];
+            n += (p + P + M) / 3, c++;
+          }
+        const u = n / c, m = 255 / (this.shadesCount - 1), w = Math.min(
+          Math.floor(u / m),
+          this.shadesCount - 1
+        ) * m;
+        for (let b = s; b < l; b++)
+          for (let y = a; y < f; y++) {
+            const d = (b * r + y) * 4;
+            i[d] = i[d + 1] = i[d + 2] = w;
+          }
+      }
+    return t;
+  }
+}
+class R {
+  dither(t, e) {
+    const i = t.data, r = t.width, o = t.height, s = 4, a = new Uint8ClampedArray(i.length);
+    for (let n = 3; n < i.length; n += 4)
+      a[n] = i[n];
+    for (let n = 0; n < o; n++)
+      for (let c = 0; c < r; c++) {
+        const l = (n * r + c) * 4, f = (i[l] + i[l + 1] + i[l + 2]) / 3, u = Math.floor((255 - f) / 50), m = Math.floor(c / s) * s, g = Math.floor(n / s) * s, w = c - m, b = n - g, d = Math.sqrt(
+          (w - s / 2) ** 2 + (b - s / 2) ** 2
+        ) < u ? 0 : 255;
+        a[l] = a[l + 1] = a[l + 2] = d;
+      }
+    return new ImageData(a, r, o);
+  }
+}
+class T {
+  dither(t, e) {
+    const i = t.data, r = t.width, o = t.height;
+    for (let s = 0; s < o; s++)
+      for (let a = 0; a < r; a++) {
+        const n = (s * r + a) * 4, c = (i[n] + i[n + 1] + i[n + 2]) / 3, f = (a % 5 === 0 || s % 5 === 0) && c < 128 ? 0 : 255;
+        i[n] = i[n + 1] = i[n + 2] = f;
+      }
+    return t;
+  }
+}
+const L = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   BayerDithering: A,
-  FloydSteinbergDithering: D,
+  BoxDithering: T,
+  DotDithering: R,
+  FloydSteinbergDithering: C,
+  PixelDithering: D,
   RandomDithering: I,
-  ThresholdDithering: x
+  ThresholdDithering: _
 }, Symbol.toStringTag, { value: "Module" }));
-class k {
+class $ {
   /**
    * Creates an instance of the CatPrinter.
    * @param options Optional settings for the SDK.
    */
-  constructor(e = {}) {
-    y(this, "device", null);
-    y(this, "server", null);
-    y(this, "txCharacteristic", null);
-    y(this, "rxCharacteristic", null);
-    y(this, "printerState", {
+  constructor(t = {}) {
+    v(this, "device", null);
+    v(this, "server", null);
+    v(this, "txCharacteristic", null);
+    v(this, "rxCharacteristic", null);
+    v(this, "printerState", {
       outOfPaper: !1,
       coverOpen: !1,
       overheat: !1,
@@ -158,14 +222,14 @@ class k {
       paused: !1,
       busy: !1
     });
-    y(this, "options");
-    y(this, "modelName", "");
+    v(this, "options");
+    v(this, "modelName", "");
     this.options = {
       debug: !1,
       speed: 32,
       energy: 24e3,
       finishFeed: 100,
-      ...e
+      ...t
     };
   }
   /**
@@ -183,13 +247,13 @@ class k {
       }), this.modelName = this.device.name || "", this.log(`Connected to printer model: ${this.modelName}`), !this.device.gatt)
         throw new Error("Bluetooth GATT not available");
       this.server = await this.device.gatt.connect();
-      const e = await this.server.getPrimaryService(44592);
-      return this.txCharacteristic = await e.getCharacteristic(44545), this.rxCharacteristic = await e.getCharacteristic(44546), await this.rxCharacteristic.startNotifications(), this.rxCharacteristic.addEventListener(
+      const t = await this.server.getPrimaryService(44592);
+      return this.txCharacteristic = await t.getCharacteristic(44545), this.rxCharacteristic = await t.getCharacteristic(44546), await this.rxCharacteristic.startNotifications(), this.rxCharacteristic.addEventListener(
         "characteristicvaluechanged",
         this.handleNotification.bind(this)
       ), await this.getDeviceState(), await this.prepare(this.options.speed, this.options.energy), this.printerState;
-    } catch (e) {
-      throw console.error("Connection error:", e), e;
+    } catch (t) {
+      throw console.error("Connection error:", t), t;
     }
   }
   /**
@@ -200,8 +264,8 @@ class k {
     if (this.rxCharacteristic)
       try {
         await this.rxCharacteristic.stopNotifications();
-      } catch (e) {
-        this.log("Error stopping notifications:", e);
+      } catch (t) {
+        this.log("Error stopping notifications:", t);
       }
     this.server && this.server.connected && this.server.disconnect(), this.device = null, this.server = null, this.txCharacteristic = null, this.rxCharacteristic = null, this.log("Disconnected from printer");
   }
@@ -217,8 +281,8 @@ class k {
    * @returns True if connected, false otherwise.
    */
   isConnected() {
-    var e;
-    return ((e = this.server) == null ? void 0 : e.connected) === !0 && this.txCharacteristic !== null;
+    var t;
+    return ((t = this.server) == null ? void 0 : t.connected) === !0 && this.txCharacteristic !== null;
   }
   /**
    * Print text content.
@@ -227,7 +291,7 @@ class k {
    * @returns A Promise that resolves when printing is complete.
    * @throws Error if the printer is not connected.
    */
-  async printText(e, t = {}) {
+  async printText(t, e = {}) {
     if (!this.isConnected())
       throw new Error("Printer not connected");
     const r = { ...{
@@ -240,7 +304,7 @@ class k {
       flipV: !1,
       brightness: 128,
       offset: 0
-    }, ...t }, o = await this.textToBitmap(e, r);
+    }, ...e }, o = await this.textToBitmap(t, r);
     r.offset && r.offset !== 0 && (await this.setSpeed(8), r.offset > 0 ? await this.feed(r.offset) : await this.retract(-r.offset), await this.setSpeed(this.options.speed)), await this.printBitmap(o);
   }
   /**
@@ -250,7 +314,7 @@ class k {
    * @returns A Promise that resolves when printing is complete.
    * @throws Error if the printer is not connected or the image fails to load.
    */
-  async printImage(e, t = {}) {
+  async printImage(t, e = {}) {
     if (!this.isConnected())
       throw new Error("Printer not connected");
     const r = { ...{
@@ -261,7 +325,7 @@ class k {
       flipV: !1,
       brightness: 128,
       offset: 0
-    }, ...t }, o = await this.imageToBitmap(e, r);
+    }, ...e }, o = await this.imageToBitmap(t, r);
     r.offset && r.offset !== 0 && (await this.setSpeed(8), r.offset > 0 ? await this.feed(r.offset) : await this.retract(-r.offset), await this.setSpeed(this.options.speed)), await this.printBitmap(o);
   }
   /**
@@ -270,12 +334,12 @@ class k {
    * @returns A Promise that resolves when all items are printed.
    * @throws Error if the printer is not connected.
    */
-  async printMultiple(e) {
+  async printMultiple(t) {
     if (!this.isConnected())
       throw new Error("Printer not connected");
     await this.prepare(this.options.speed, this.options.energy);
-    for (const t of e)
-      t.type === "text" ? await this.printText(t.content, t.options) : t.type === "image" && await this.printImage(t.content, t.options);
+    for (const e of t)
+      e.type === "text" ? await this.printText(e.content, e.options) : e.type === "image" && await this.printImage(e.content, e.options);
     await this.finish(this.options.finishFeed);
   }
   /**
@@ -283,48 +347,48 @@ class k {
    * @param lines The number of lines to feed.
    * @returns A Promise that resolves when the feed command is sent.
    */
-  async feed(e) {
-    if (e <= 0) return;
-    const t = this.makeCommand(
-      v.Feed,
-      new Uint8Array([e & 255, e >> 8 & 255])
+  async feed(t) {
+    if (t <= 0) return;
+    const e = this.makeCommand(
+      S.Feed,
+      new Uint8Array([t & 255, t >> 8 & 255])
     );
-    await this.write(t);
+    await this.write(e);
   }
   /**
    * Retract paper (reverse feed) by a specified number of lines.
    * @param lines The number of lines to retract.
    * @returns A Promise that resolves when the retract command is sent.
    */
-  async retract(e) {
-    if (e <= 0) return;
-    const t = this.makeCommand(
-      v.Retract,
-      new Uint8Array([e & 255, e >> 8 & 255])
+  async retract(t) {
+    if (t <= 0) return;
+    const e = this.makeCommand(
+      S.Retract,
+      new Uint8Array([t & 255, t >> 8 & 255])
     );
-    await this.write(t);
+    await this.write(e);
   }
   /**
    * Set the print speed.
    * @param speed The print speed value.
    * @returns A Promise that resolves when the speed command is sent.
    */
-  async setSpeed(e) {
-    const t = this.makeCommand(v.Speed, new Uint8Array([e]));
-    await this.write(t);
+  async setSpeed(t) {
+    const e = this.makeCommand(S.Speed, new Uint8Array([t]));
+    await this.write(e);
   }
   /**
    * Set the print energy/density.
    * @param energy The energy value.
    * @returns A Promise that resolves when the energy command is sent.
    */
-  async setEnergy(e) {
-    const t = new Uint8Array([
-      e & 255,
-      e >> 8 & 255,
-      e >> 16 & 255,
-      e >> 24 & 255
-    ]), i = this.makeCommand(v.Energy, t);
+  async setEnergy(t) {
+    const e = new Uint8Array([
+      t & 255,
+      t >> 8 & 255,
+      t >> 16 & 255,
+      t >> 24 & 255
+    ]), i = this.makeCommand(S.Energy, e);
     await this.write(i);
   }
   /**
@@ -332,19 +396,19 @@ class k {
    * @returns A Promise that resolves when the apply energy command is sent.
    */
   async applyEnergy() {
-    const e = this.makeCommand(v.ApplyEnergy, new Uint8Array([1]));
-    await this.write(e);
+    const t = this.makeCommand(S.ApplyEnergy, new Uint8Array([1]));
+    await this.write(t);
   }
   /**
    * Get the current device state from the printer.
    * @returns A Promise that resolves with the current printer state.
    */
   async getDeviceState() {
-    const e = this.makeCommand(
-      v.GetDeviceState,
+    const t = this.makeCommand(
+      S.GetDeviceState,
       new Uint8Array([1])
     );
-    return await this.write(e), this.printerState;
+    return await this.write(t), this.printerState;
   }
   /**
    * Prepare the printer for printing by setting speed and energy.
@@ -352,16 +416,16 @@ class k {
    * @param energy The print energy/density.
    * @returns A Promise that resolves when the prepare commands are sent.
    */
-  async prepare(e, t) {
-    await this.setSpeed(e), await this.setEnergy(t), await this.applyEnergy();
+  async prepare(t, e) {
+    await this.setSpeed(t), await this.setEnergy(e), await this.applyEnergy();
   }
   /**
    * Finish printing with an optional paper feed.
    * @param feed The number of lines to feed at the end of printing. Default is 0.
    * @returns A Promise that resolves when the finish commands are sent.
    */
-  async finish(e = 0) {
-    e > 0 && (await this.setSpeed(8), await this.feed(e));
+  async finish(t = 0) {
+    t > 0 && (await this.setSpeed(8), await this.feed(t));
   }
   /**
    * Draw a single line of bitmap data to the printer.
@@ -369,22 +433,22 @@ class k {
    * @returns A Promise that resolves when the draw command is sent.
    * @throws Error if the printer is not connected.
    */
-  async draw(e) {
+  async draw(t) {
     if (!this.isConnected())
       throw new Error("Printer not connected");
-    const t = this.makeCommand(v.Bitmap, e);
-    await this.write(t);
+    const e = this.makeCommand(S.Bitmap, t);
+    await this.write(e);
   }
   /**
    * Print a full bitmap.
    * @param bitmap An object containing the width, height, and bitmap data.
    * @returns A Promise that resolves when the entire bitmap is printed.
    */
-  async printBitmap(e) {
-    const { width: t, height: i, data: r } = e, o = Math.ceil(t / 8);
-    for (let a = 0; a < i; a++) {
-      const n = a * o, h = n + o, c = r.slice(n, h);
-      c.every((g) => g === 0) || await this.draw(c);
+  async printBitmap(t) {
+    const { width: e, height: i, data: r } = t, o = Math.ceil(e / 8);
+    for (let s = 0; s < i; s++) {
+      const a = s * o, n = a + o, c = r.slice(a, n);
+      c.every((l) => l === 0) || await this.draw(c);
     }
   }
   // Private methods
@@ -395,16 +459,16 @@ class k {
    * @param type The type of command (Transfer or Response). Default is Transfer.
    * @returns The complete command packet as a Uint8Array.
    */
-  makeCommand(e, t, i = _.Transfer) {
+  makeCommand(t, e, i = E.Transfer) {
     return new Uint8Array([
       81,
       120,
-      e,
+      t,
       i,
-      t.length & 255,
-      t.length >> 8,
-      ...t,
-      T(t),
+      e.length & 255,
+      e.length >> 8,
+      ...e,
+      N(e),
       255
     ]);
   }
@@ -414,31 +478,31 @@ class k {
    * @returns A Promise that resolves when the data is written.
    * @throws Error if the printer is not properly connected.
    */
-  async write(e) {
+  async write(t) {
     if (!this.txCharacteristic)
       throw new Error("Printer not properly connected");
     this.log(
       "Sending data:",
-      Array.from(e).map((t) => t.toString(16).padStart(2, "0")).join(" ")
+      Array.from(t).map((e) => e.toString(16).padStart(2, "0")).join(" ")
     );
     try {
-      await this.txCharacteristic.writeValueWithoutResponse(e);
-    } catch (t) {
-      throw this.log("Error writing to printer:", t), t;
+      await this.txCharacteristic.writeValueWithoutResponse(t);
+    } catch (e) {
+      throw this.log("Error writing to printer:", e), e;
     }
   }
   /**
    * Handle incoming notifications from the printer via the RX characteristic.
    * @param event The characteristicvaluechanged event.
    */
-  handleNotification(e) {
-    const t = e.target;
-    if (!t.value) return;
-    const i = new Uint8Array(t.value.buffer);
+  handleNotification(t) {
+    const e = t.target;
+    if (!e.value) return;
+    const i = new Uint8Array(e.value.buffer);
     if (this.log(
       "Received notification:",
       Array.from(i).map((r) => r.toString(16).padStart(2, "0")).join(" ")
-    ), i.length >= 7 && i[2] === v.GetDeviceState) {
+    ), i.length >= 7 && i[2] === S.GetDeviceState) {
       const r = i[6];
       this.printerState = {
         outOfPaper: !!(r & 1),
@@ -456,98 +520,112 @@ class k {
    * @param options Text formatting options.
    * @returns A Promise that resolves with the bitmap data.
    */
-  async textToBitmap(e, t) {
+  async textToBitmap(t, e) {
     const i = document.createElement("canvas"), r = i.getContext("2d");
     i.width = 384, i.height = 500, r.fillStyle = "white", r.fillRect(0, 0, i.width, i.height), r.fillStyle = "black";
-    const o = t.fontWeight ? `${t.fontWeight} ` : "";
-    r.font = `${o}${t.fontSize}px ${t.fontFamily}`, r.textAlign = t.align === "start" ? "left" : t.align === "end" ? "right" : t.align;
-    const a = e.split(`
-`), n = t.fontSize + (t.lineSpacing || 8);
-    let h = t.fontSize;
-    for (const d of a) {
-      const f = t.align === "start" ? 0 : t.align === "end" ? i.width : i.width / 2;
-      r.fillText(d, f, h), h += n;
+    const o = e.fontWeight ? `${e.fontWeight} ` : "";
+    r.font = `${o}${e.fontSize}px ${e.fontFamily}`, r.textAlign = e.align === "start" ? "left" : e.align === "end" ? "right" : e.align;
+    const s = t.split(`
+`), a = e.fontSize + (e.lineSpacing || 8);
+    let n = e.fontSize;
+    for (const g of s) {
+      const w = e.align === "start" ? 0 : e.align === "end" ? i.width : i.width / 2;
+      r.fillText(g, w, n), n += a;
     }
     const c = document.createElement("canvas");
-    c.width = i.width, c.height = h;
-    const g = c.getContext("2d");
-    if (g.drawImage(i, 0, 0), t.rotate !== 0 || t.flipH || t.flipV) {
-      const d = document.createElement("canvas");
-      d.width = c.width, d.height = c.height;
-      const f = d.getContext("2d");
-      f.save(), f.translate(
-        d.width / 2,
-        d.height / 2
-      ), t.rotate && t.rotate !== 0 && f.rotate(t.rotate * Math.PI / 180), t.flipH && f.scale(-1, 1), t.flipV && f.scale(1, -1), f.drawImage(
+    c.width = i.width, c.height = n;
+    const l = c.getContext("2d");
+    if (l.drawImage(i, 0, 0), e.rotate !== 0 || e.flipH || e.flipV) {
+      const g = document.createElement("canvas");
+      g.width = c.width, g.height = c.height;
+      const w = g.getContext("2d");
+      w.save(), w.translate(
+        g.width / 2,
+        g.height / 2
+      ), e.rotate && e.rotate !== 0 && w.rotate(e.rotate * Math.PI / 180), e.flipH && w.scale(-1, 1), e.flipV && w.scale(1, -1), w.drawImage(
         c,
         -c.width / 2,
         -c.height / 2
-      ), f.restore(), c.width = d.width, c.height = d.height, g.drawImage(d, 0, 0);
+      ), w.restore(), c.width = g.width, c.height = g.height, l.drawImage(g, 0, 0);
     }
-    const p = g.getImageData(
+    const f = l.getImageData(
       0,
       0,
       c.width,
       c.height
-    ), u = new Uint32Array(p.data.buffer), m = E(u);
+    ), u = new Uint32Array(f.data.buffer), m = x(u);
     return {
       width: c.width,
       height: c.height,
       data: m
     };
   }
-  async imageToBitmap(e, t) {
+  async imageToBitmap(t, e) {
     const i = new Image();
     i.crossOrigin = "anonymous";
     const o = await new Promise(
-      (l, w) => {
-        i.onload = () => l(i), i.onerror = () => w(new Error(`Failed to load image: ${e}`)), i.src = e;
+      (d, p) => {
+        i.onload = () => d(i), i.onerror = () => p(new Error(`Failed to load image: ${t}`)), i.src = t;
       }
-    ), a = document.createElement("canvas"), n = a.getContext("2d"), h = 384, c = o.width / o.height, g = Math.floor(h / c);
-    if (a.width = h, a.height = g, n.fillStyle = "white", n.fillRect(0, 0, a.width, a.height), n.drawImage(o, 0, 0, h, g), t.rotate !== 0 || t.flipH || t.flipV) {
-      const l = document.createElement("canvas");
-      l.width = a.width, l.height = a.height;
-      const w = l.getContext("2d");
-      w.save(), w.translate(
-        l.width / 2,
-        l.height / 2
-      ), t.rotate && t.rotate !== 0 && w.rotate(t.rotate * Math.PI / 180), t.flipH && w.scale(-1, 1), t.flipV && w.scale(1, -1), w.drawImage(a, -a.width / 2, -a.height / 2), w.restore(), a.width = l.width, a.height = l.height, n.drawImage(l, 0, 0);
+    ), s = document.createElement("canvas"), a = s.getContext("2d"), n = 384, c = o.width / o.height, l = Math.floor(n / c);
+    if (s.width = n, s.height = l, a.fillStyle = "white", a.fillRect(0, 0, s.width, s.height), a.drawImage(o, 0, 0, n, l), e.rotate !== 0 || e.flipH || e.flipV) {
+      const d = document.createElement("canvas");
+      d.width = s.width, d.height = s.height;
+      const p = d.getContext("2d");
+      p.save(), p.translate(
+        d.width / 2,
+        d.height / 2
+      ), e.rotate && e.rotate !== 0 && p.rotate(e.rotate * Math.PI / 180), e.flipH && p.scale(-1, 1), e.flipV && p.scale(1, -1), p.drawImage(s, -s.width / 2, -s.height / 2), p.restore(), s.width = d.width, s.height = d.height, a.drawImage(d, 0, 0);
     }
-    const p = n.getImageData(0, 0, a.width, a.height);
-    let u = p;
-    t.dither && t.dither !== "none" && (t.dither === "threshold" ? u = new x().dither(p, t) : t.dither === "bayer" ? u = new A().dither(p, t) : t.dither === "floyd-steinberg" ? u = new D().dither(p, t) : t.dither === "random" && (u = new I().dither(p, t)), n.putImageData(u, 0, 0));
-    const m = n.getImageData(0, 0, a.width, a.height), d = new Uint32Array(m.data.buffer);
-    let f = 128;
-    (t.dither === "threshold" || t.dither === "none") && (f = t.brightness !== void 0 ? t.brightness : 128);
-    const b = E(d, f), S = a.toDataURL("image/png");
+    const f = a.getImageData(0, 0, s.width, s.height);
+    let u = f;
+    if (e.dither && e.dither !== "none") {
+      if (e.dither === "threshold")
+        u = new _().dither(f, e);
+      else if (e.dither === "bayer")
+        u = new A().dither(f, e);
+      else if (e.dither === "floyd-steinberg")
+        u = new C().dither(f, e);
+      else if (e.dither === "pixel")
+        u = new D().dither(f, e);
+      else if (e.dither === "dot") {
+        const d = new R();
+        u = d.dither(f, e), u = d.dither(f, e);
+      } else e.dither === "box" ? u = new T().dither(f, e) : e.dither === "random" && (u = new I().dither(f, e));
+      a.putImageData(u, 0, 0);
+    }
+    const m = a.getImageData(0, 0, s.width, s.height), g = new Uint32Array(m.data.buffer);
+    let w = 128;
+    (e.dither === "threshold" || e.dither === "none") && (w = e.brightness !== void 0 ? e.brightness : 128);
+    const b = x(g, w), y = s.toDataURL("image/png");
     return {
-      width: a.width,
-      height: a.height,
+      width: s.width,
+      height: s.height,
       data: b,
-      dataurl: S
+      dataurl: y
     };
   }
   /**
    * Log debug information to the console if debugging is enabled.
    * @param args Arguments to log.
    */
-  log(...e) {
-    this.options.debug && console.log("[CatPrinter]", ...e);
+  log(...t) {
+    this.options.debug && console.log("[CatPrinter]", ...t);
   }
 }
 export {
-  F as CAT_ADV_SRV,
-  V as CAT_PRINT_RX_CHAR,
-  N as CAT_PRINT_SRV,
-  B as CAT_PRINT_TX_CHAR,
-  k as CatPrinter,
-  v as Command,
-  _ as CommandType,
-  H as DEF_CANVAS_WIDTH,
-  O as DEF_ENERGY,
-  U as DEF_FINISH_FEED,
-  M as DEF_SPEED,
-  G as Dithering,
-  T as crc8,
-  E as rgbaToBits
+  V as CAT_ADV_SRV,
+  O as CAT_PRINT_RX_CHAR,
+  U as CAT_PRINT_SRV,
+  z as CAT_PRINT_TX_CHAR,
+  $ as CatPrinter,
+  S as Command,
+  E as CommandType,
+  G as DEF_CANVAS_WIDTH,
+  W as DEF_ENERGY,
+  X as DEF_FINISH_FEED,
+  k as DEF_SPEED,
+  L as Dithering,
+  N as crc8,
+  x as rgbaToBits
 };

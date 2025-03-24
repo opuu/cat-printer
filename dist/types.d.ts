@@ -75,7 +75,7 @@ export interface ImageOptions {
      * Dithering algorithm to use for the image.
      * Options: 'none', 'threshold', 'bayer', 'floyd-steinberg', 'random'.
      */
-    dither?: 'none' | 'threshold' | 'bayer' | 'floyd-steinberg' | 'random';
+    dither?: 'none' | 'threshold' | 'bayer' | 'floyd-steinberg' | 'random' | 'pixel' | 'dot' | 'box';
     /**
      * Rotation angle of the image (in degrees).
      */

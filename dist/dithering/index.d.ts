@@ -15,3 +15,6 @@ export * from './threshold';
 export * from './bayer';
 export * from './floydSteinberg';
 export * from './random';
+export * from './pixel';
+export * from './dot';
+export * from './box';
