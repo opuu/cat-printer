@@ -12,8 +12,7 @@ The Cat Printer SDK is a powerful JavaScript library that brings the convenience
     - **Threshold:** Simple brightness cutoff.
     - **Bayer:** Uses an ordered Bayer matrix for a patterned effect.
     - **Floyd-Steinberg:** Implements error diffusion for smoother gradients.
-    - **Random:** Applies a randomized threshold to achieve a textured result.
-    - **Pixel, Dot & Box Dithering:** Additional techniques for more artistic or technical effects.
+    - **Dot Dithering:** Additional technique for more artistic or technical effects.
 - **Printer Control:** Adjust print settings such as speed, energy, and paper feed.
 - **State Monitoring:** Check printer conditions like paper status, cover position, temperature, battery level, and more.
 - **Queue Support:** Manage and print multiple items in sequence to streamline your printing workflow.
@@ -24,22 +23,22 @@ Get started in seconds by installing the Cat Printer SDK using your favorite pac
 
 ### NPM
 ```bash
-npm install cat-printer
+npm install @opuu/cat-printer
 ```
 
 ### Yarn
 ```bash
-yarn add cat-printer
+yarn add @opuu/cat-printer
 ```
 
 ### PNPM
 ```bash
-pnpm add cat-printer
+pnpm add @opuu/cat-printer
 ```
 
 ### Bun
 ```bash
-bun add cat-printer
+bun add @opuu/cat-printer
 ```
 
 ## Quick Start
@@ -47,7 +46,7 @@ bun add cat-printer
 Below is a simple example demonstrating how to connect to a Cat Printer, print text and an image, and then gracefully disconnect.
 
 ```typescript
-import { CatPrinter } from 'cat-printer';
+import { CatPrinter } from '@opuu/cat-printer';
 
 // Create a new instance with debug logging enabled
 const printer = new CatPrinter({ debug: true });
@@ -176,7 +175,7 @@ new CatPrinter(options?: PrinterOptions)
 
 | Option     | Type                                                                       | Description                                      |
 |------------|----------------------------------------------------------------------------|--------------------------------------------------|
-| dither     | 'none' \| 'threshold' \| 'bayer' \| 'floyd-steinberg' \| 'random' \| 'pixel' \| 'dot' \| 'box'  | Dithering algorithm to convert images |
+| dither     | 'none' \| 'threshold' \| 'bayer' \| 'floyd-steinberg' \| 'dot'  | Dithering algorithm to convert images |
 | rotate     | number                                                                     | Rotation angle in degrees                        |
 | flipH      | boolean                                                                    | Flip the image horizontally                      |
 | flipV      | boolean                                                                    | Flip the image vertically                        |
@@ -201,8 +200,7 @@ When printing images, the SDK converts images to black and white using various d
 - **threshold:** Applies a simple brightness threshold.
 - **bayer:** Uses an ordered Bayer matrix to generate a patterned effect.
 - **floyd-steinberg:** Uses error diffusion for smooth gradient transitions.
-- **random:** Introduces randomized noise to approximate various shading effects.
-- **pixel, dot & box:** Additional techniques offering distinct stylistic results; ideal for creative outputs.
+- **dot:** Additional technique offering distinct stylistic results; ideal for creative outputs.
 
 ## Dithering Previews
 
@@ -214,10 +212,7 @@ Below are previews showcasing the visual effects of different dithering methods.
 | **Threshold**         | ![Threshold Dithering](./images/billu-threshold.png)     |
 | **Bayer**             | ![Bayer Dithering](./images/billu-bayer.png)           |
 | **Floyd-Steinberg**   | ![Floyd-Steinberg Dithering](./images/billu-floyd.png) |
-| **Random**            | ![Random Dithering](./images/billu-random.png)           |
-| **Pixel**             | ![Pixel Dithering](./images/billu-pixel.png)             |
 | **Dot**               | ![Dot Dithering](./images/billu-dot.png)               |
-| **Box**               | ![Box Dithering](./images/billu-box.png)               |
 
 ## Browser Compatibility
 

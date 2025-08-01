@@ -24,10 +24,7 @@ import {
   ThresholdDithering,
   BayerDithering,
   FloydSteinbergDithering,
-  RandomDithering,
-  PixelDithering,
   DotDithering,
-  BoxDithering,
 } from './dithering';
 
 /**
@@ -695,18 +692,8 @@ export class CatPrinter {
       } else if (options.dither === 'floyd-steinberg') {
         const ditherer = new FloydSteinbergDithering();
         processedImageData = ditherer.dither(imageData, options);
-      } else if (options.dither === 'pixel') {
-        const ditherer = new PixelDithering();
-        processedImageData = ditherer.dither(imageData, options);
       } else if (options.dither === 'dot') {
         const ditherer = new DotDithering();
-        processedImageData = ditherer.dither(imageData, options);
-        processedImageData = ditherer.dither(imageData, options);
-      } else if (options.dither === 'box') {
-        const ditherer = new BoxDithering();
-        processedImageData = ditherer.dither(imageData, options);
-      } else if (options.dither === 'random') {
-        const ditherer = new RandomDithering();
         processedImageData = ditherer.dither(imageData, options);
       }
       ctx.putImageData(processedImageData, 0, 0); // Put the modified data back to the canvas

@@ -73,9 +73,9 @@ export interface TextOptions {
 export interface ImageOptions {
     /**
      * Dithering algorithm to use for the image.
-     * Options: 'none', 'threshold', 'bayer', 'floyd-steinberg', 'random'.
+     * Options: 'none', 'threshold', 'bayer', 'floyd-steinberg', 'dot'.
      */
-    dither?: 'none' | 'threshold' | 'bayer' | 'floyd-steinberg' | 'random' | 'pixel' | 'dot' | 'box';
+    dither?: 'none' | 'threshold' | 'bayer' | 'floyd-steinberg' | 'dot';
     /**
      * Rotation angle of the image (in degrees).
      */
